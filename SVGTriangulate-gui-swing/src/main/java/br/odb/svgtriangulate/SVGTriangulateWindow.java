@@ -3,18 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.odb.svgtriangulate;
 
 import br.odb.gamerendering.rendering.DisplayList;
 import br.odb.gamerendering.rendering.RenderingNode;
 import br.odb.gamerendering.rendering.SVGRenderingNode;
+import br.odb.libsvg.ColoredPolygon;
 import br.odb.libsvg.SVGGraphic;
 import br.odb.libsvg.SVGParsingUtils;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -22,20 +27,13 @@ import java.util.logging.Logger;
  */
 public class SVGTriangulateWindow extends javax.swing.JFrame {
 
+    SVGGraphic graphic;
+
     /**
      * Creates new form SVGTriangulateWindow
      */
     public SVGTriangulateWindow() {
-        try {
-            initComponents();
-            DisplayList displayList =  new DisplayList( "id" );
-            SVGGraphic graphic = new SVGGraphic( SVGParsingUtils.readSVG( new FileInputStream( "/home/monty/title.svg" ) ) ).scaleTo( 100, 200 );
-            SVGRenderingNode node = new SVGRenderingNode( graphic, "logo" );
-            displayList.setItems( new RenderingNode[]{ node } );
-            this.sVGViewJPanel1.setRenderingContent( displayList );
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(SVGTriangulateWindow.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        initComponents();
     }
 
     /**
@@ -47,57 +45,103 @@ public class SVGTriangulateWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBox1 = new javax.swing.JComboBox();
-        jSlider1 = new javax.swing.JSlider();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        sVGViewJPanel1 = new br.odb.svgtriangulate.SVGViewJPanel();
+        cmbShapes = new javax.swing.JComboBox();
+        sldExtrusion = new javax.swing.JSlider();
+        btnOpenSVG = new javax.swing.JButton();
+        btnSaveAsSVG = new javax.swing.JButton();
+        btnSaveAsBinary = new javax.swing.JButton();
+        pnlSVGView = new br.odb.svgtriangulate.SVGViewJPanel();
+        btnQuit = new javax.swing.JButton();
+        btnSaveAsRegularSVG = new javax.swing.JButton();
+        chkDrawIn3D = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbShapes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbShapes.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbShapesItemStateChanged(evt);
+            }
+        });
 
-        jButton1.setText("jButton1");
+        sldExtrusion.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sldExtrusionStateChanged(evt);
+            }
+        });
 
-        jButton2.setText("jButton2");
+        btnOpenSVG.setText("Open");
+        btnOpenSVG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOpenSVGActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("jButton3");
+        btnSaveAsSVG.setText("Save triangulated as SVG");
+        btnSaveAsSVG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveAsSVGActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout sVGViewJPanel1Layout = new javax.swing.GroupLayout(sVGViewJPanel1);
-        sVGViewJPanel1.setLayout(sVGViewJPanel1Layout);
-        sVGViewJPanel1Layout.setHorizontalGroup(
-            sVGViewJPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        btnSaveAsBinary.setText("Save triangulated as binary");
+        btnSaveAsBinary.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveAsBinaryActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlSVGViewLayout = new javax.swing.GroupLayout(pnlSVGView);
+        pnlSVGView.setLayout(pnlSVGViewLayout);
+        pnlSVGViewLayout.setHorizontalGroup(
+            pnlSVGViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 957, Short.MAX_VALUE)
         );
-        sVGViewJPanel1Layout.setVerticalGroup(
-            sVGViewJPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        pnlSVGViewLayout.setVerticalGroup(
+            pnlSVGViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 786, Short.MAX_VALUE)
         );
+
+        btnQuit.setText("Quit");
+        btnQuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitActionPerformed(evt);
+            }
+        });
+
+        btnSaveAsRegularSVG.setText("Save as regular SVG");
+        btnSaveAsRegularSVG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveAsRegularSVGActionPerformed(evt);
+            }
+        });
+
+        chkDrawIn3D.setText("draw in 3D");
+        chkDrawIn3D.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                chkDrawIn3DStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(71, 71, 71)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(36, 36, 36))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(sVGViewJPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlSVGView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(sldExtrusion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmbShapes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnOpenSVG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSaveAsSVG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSaveAsBinary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnQuit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSaveAsRegularSVG, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chkDrawIn3D, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,21 +149,97 @@ public class SVGTriangulateWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 175, Short.MAX_VALUE))
-                    .addComponent(sVGViewJPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                        .addComponent(cmbShapes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sldExtrusion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnOpenSVG)
+                        .addGap(4, 4, 4)
+                        .addComponent(btnSaveAsRegularSVG)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSaveAsSVG)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSaveAsBinary)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkDrawIn3D)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnQuit))
+                    .addComponent(pnlSVGView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnOpenSVGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenSVGActionPerformed
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogType(JFileChooser.OPEN_DIALOG);
+        fileChooser.showDialog(this, "Open");
+        File file = fileChooser.getSelectedFile();
+
+        if (file != null) {
+
+            String filePath = file.getAbsolutePath();
+            try {
+                graphic = new SVGGraphic(SVGParsingUtils.readSVG(new FileInputStream(filePath))).scale(0.5f, 0.5f);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(SVGTriangulateWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        updateWidgets();
+    }//GEN-LAST:event_btnOpenSVGActionPerformed
+
+    private void btnSaveAsSVGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveAsSVGActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
+        fileChooser.showDialog(this, "Save");
+        File file = fileChooser.getSelectedFile();
+
+        if (file != null) {
+            String filePath = file.getAbsolutePath();
+        }
+    }//GEN-LAST:event_btnSaveAsSVGActionPerformed
+
+    private void btnSaveAsBinaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveAsBinaryActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
+        fileChooser.showDialog(this, "Save");
+        File file = fileChooser.getSelectedFile();
+
+        if (file != null) {
+            String filePath = file.getAbsolutePath();
+        }
+    }//GEN-LAST:event_btnSaveAsBinaryActionPerformed
+
+    private void btnQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitActionPerformed
+        this.setVisible(false);
+        System.exit(0);
+    }//GEN-LAST:event_btnQuitActionPerformed
+
+    private void chkDrawIn3DStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_chkDrawIn3DStateChanged
+        updateWidgets();
+    }//GEN-LAST:event_chkDrawIn3DStateChanged
+
+    private void cmbShapesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbShapesItemStateChanged
+        updateWidgets();
+    }//GEN-LAST:event_cmbShapesItemStateChanged
+
+    private void sldExtrusionStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldExtrusionStateChanged
+        updateWidgets();
+    }//GEN-LAST:event_sldExtrusionStateChanged
+
+    private void btnSaveAsRegularSVGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveAsRegularSVGActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
+        fileChooser.showDialog(this, "Save");
+        File file = fileChooser.getSelectedFile();
+
+        if (file != null) {
+            String filePath = file.getAbsolutePath();
+        }
+    }//GEN-LAST:event_btnSaveAsRegularSVGActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,11 +277,38 @@ public class SVGTriangulateWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JSlider jSlider1;
-    private br.odb.svgtriangulate.SVGViewJPanel sVGViewJPanel1;
+    private javax.swing.JButton btnOpenSVG;
+    private javax.swing.JButton btnQuit;
+    private javax.swing.JButton btnSaveAsBinary;
+    private javax.swing.JButton btnSaveAsRegularSVG;
+    private javax.swing.JButton btnSaveAsSVG;
+    private javax.swing.JCheckBox chkDrawIn3D;
+    private javax.swing.JComboBox cmbShapes;
+    private br.odb.svgtriangulate.SVGViewJPanel pnlSVGView;
+    private javax.swing.JSlider sldExtrusion;
     // End of variables declaration//GEN-END:variables
+
+    private void updateWidgets() {
+        
+        if ( graphic != null ) {
+            DisplayList displayList = new DisplayList("id");
+            SVGRenderingNode node = new SVGRenderingNode(graphic, "logo");
+            displayList.setItems(new RenderingNode[]{node});
+            this.pnlSVGView.setRenderingContent(displayList);
+            this.pnlSVGView.repaint();
+
+            ArrayList<String> ids = new ArrayList<String>();
+
+            for (ColoredPolygon cp : graphic.shapes) {
+                ids.add(cp.id);
+            }
+
+            String[] asArray = new String[ids.size()];
+            asArray = ids.toArray(asArray); //this is plain ugly.
+            ComboBoxModel model;
+            model = new DefaultComboBoxModel(asArray);
+            cmbShapes.setModel(model);            
+        }
+        System.out.println("updating " + System.currentTimeMillis());
+    }
 }
