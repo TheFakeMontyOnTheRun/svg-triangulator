@@ -199,6 +199,8 @@ public class SVGTriangulateWindow extends javax.swing.JFrame {
 
         if (file != null) {
             String filePath = file.getAbsolutePath();
+            SVGGraphic processed = SVGParsingUtils.splitIntoMonotones( graphic );
+            SVGParsingUtils.writeSVG(processed, filePath);
         }
     }//GEN-LAST:event_btnSaveAsSVGActionPerformed
 
@@ -210,6 +212,8 @@ public class SVGTriangulateWindow extends javax.swing.JFrame {
 
         if (file != null) {
             String filePath = file.getAbsolutePath();
+            
+            SVGGraphic processed = SVGParsingUtils.splitIntoMonotones( graphic );
         }
     }//GEN-LAST:event_btnSaveAsBinaryActionPerformed
 
@@ -238,6 +242,7 @@ public class SVGTriangulateWindow extends javax.swing.JFrame {
 
         if (file != null) {
             String filePath = file.getAbsolutePath();
+            SVGParsingUtils.writeSVG( graphic, filePath);
         }
     }//GEN-LAST:event_btnSaveAsRegularSVGActionPerformed
 
@@ -292,7 +297,7 @@ public class SVGTriangulateWindow extends javax.swing.JFrame {
         
         if ( graphic != null ) {
             DisplayList displayList = new DisplayList("id");
-            SVGRenderingNode node = new SVGRenderingNode(graphic, "logo");
+            SVGRenderingNode node = new Iso3DSVGRenderingNode(graphic, "logo");
             displayList.setItems(new RenderingNode[]{node});
             this.pnlSVGView.setRenderingContent(displayList);
             this.pnlSVGView.repaint();

@@ -52,9 +52,9 @@ public class SwingCanvasRenderingContext extends RenderingContext {
         GeneralPath path = new GeneralPath();
 
         Vec2 point = c.controlPoints.get(0);
-
+        
         graphics.setColor(SwingUtils.getSwingColor(c.color));
-
+       
         path.moveTo(point.x + currentOrigin.x, point.y + currentOrigin.y);
 
 
