@@ -29,6 +29,20 @@ public class SVGTriangulateWindow extends javax.swing.JFrame {
 
     SVGGraphic graphic;
 
+    private void onGraphicLoaded() {
+        ArrayList<String> ids = new ArrayList<String>();
+
+        for (ColoredPolygon cp : graphic.shapes) {
+            ids.add(cp.id);
+        }
+
+        String[] asArray = new String[ids.size()];
+        asArray = ids.toArray(asArray); //this is plain ugly.
+        ComboBoxModel model;
+        model = new DefaultComboBoxModel(asArray);
+        cmbShapes.setModel(model);
+    }
+
     /**
      * Creates new form SVGTriangulateWindow
      */
@@ -63,7 +77,14 @@ public class SVGTriangulateWindow extends javax.swing.JFrame {
                 cmbShapesItemStateChanged(evt);
             }
         });
+        cmbShapes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbShapesActionPerformed(evt);
+            }
+        });
 
+        sldExtrusion.setMaximum(255);
+        sldExtrusion.setValue(0);
         sldExtrusion.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sldExtrusionStateChanged(evt);
@@ -183,6 +204,7 @@ public class SVGTriangulateWindow extends javax.swing.JFrame {
             String filePath = file.getAbsolutePath();
             try {
                 graphic = new SVGGraphic(SVGParsingUtils.readSVG(new FileInputStream(filePath))).scale(0.5f, 0.5f);
+                onGraphicLoaded();
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(SVGTriangulateWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -199,7 +221,7 @@ public class SVGTriangulateWindow extends javax.swing.JFrame {
 
         if (file != null) {
             String filePath = file.getAbsolutePath();
-            SVGGraphic processed = SVGParsingUtils.splitIntoMonotones( graphic );
+            SVGGraphic processed = SVGParsingUtils.splitIntoMonotones(graphic);
             SVGParsingUtils.writeSVG(processed, filePath);
         }
     }//GEN-LAST:event_btnSaveAsSVGActionPerformed
@@ -212,8 +234,7 @@ public class SVGTriangulateWindow extends javax.swing.JFrame {
 
         if (file != null) {
             String filePath = file.getAbsolutePath();
-            
-            SVGGraphic processed = SVGParsingUtils.splitIntoMonotones( graphic );
+            SVGGraphic processed = SVGParsingUtils.splitIntoMonotones(graphic);
         }
     }//GEN-LAST:event_btnSaveAsBinaryActionPerformed
 
@@ -227,10 +248,12 @@ public class SVGTriangulateWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_chkDrawIn3DStateChanged
 
     private void cmbShapesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbShapesItemStateChanged
-        updateWidgets();
+
     }//GEN-LAST:event_cmbShapesItemStateChanged
 
     private void sldExtrusionStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldExtrusionStateChanged
+        ColoredPolygon cp = graphic.getShapeById( (String) cmbShapes.getSelectedItem() );
+        cp.z = sldExtrusion.getValue();
         updateWidgets();
     }//GEN-LAST:event_sldExtrusionStateChanged
 
@@ -242,9 +265,13 @@ public class SVGTriangulateWindow extends javax.swing.JFrame {
 
         if (file != null) {
             String filePath = file.getAbsolutePath();
-            SVGParsingUtils.writeSVG( graphic, filePath);
+            SVGParsingUtils.writeSVG(graphic, filePath);
         }
     }//GEN-LAST:event_btnSaveAsRegularSVGActionPerformed
+
+    private void cmbShapesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbShapesActionPerformed
+        updateWidgets();
+    }//GEN-LAST:event_cmbShapesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -294,25 +321,18 @@ public class SVGTriangulateWindow extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void updateWidgets() {
-        
-        if ( graphic != null ) {
+
+        if (graphic != null) {
             DisplayList displayList = new DisplayList("id");
-            SVGRenderingNode node = new Iso3DSVGRenderingNode(graphic, "logo");
+            Iso3DSVGRenderingNode node = new Iso3DSVGRenderingNode(graphic, "logo");
+            node.selected = (String) cmbShapes.getSelectedItem();
             displayList.setItems(new RenderingNode[]{node});
             this.pnlSVGView.setRenderingContent(displayList);
             this.pnlSVGView.repaint();
-
-            ArrayList<String> ids = new ArrayList<String>();
-
-            for (ColoredPolygon cp : graphic.shapes) {
-                ids.add(cp.id);
-            }
-
-            String[] asArray = new String[ids.size()];
-            asArray = ids.toArray(asArray); //this is plain ugly.
-            ComboBoxModel model;
-            model = new DefaultComboBoxModel(asArray);
-            cmbShapes.setModel(model);            
+    
+            ColoredPolygon cp = graphic.getShapeById( (String) cmbShapes.getSelectedItem() );
+            sldExtrusion.setValue( cp.z );
+            
         }
         System.out.println("updating " + System.currentTimeMillis());
     }

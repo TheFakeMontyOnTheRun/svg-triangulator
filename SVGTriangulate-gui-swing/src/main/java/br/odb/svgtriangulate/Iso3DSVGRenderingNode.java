@@ -39,12 +39,15 @@ public class Iso3DSVGRenderingNode extends SVGRenderingNode {
 
                 for (int c = 0; c < cp.npoints; ++c) {
 
-                    cp3D.addPoint(cp.xpoints[ c], cp.ypoints[ c]);
+                    cp3D.addPoint(cp.xpoints[ c], cp.ypoints[ c] - cp.xpoints[ c] + cp.z );
                 }
 
-                if ( cp.id.equals( selected ) ) {
-                  cp3D.color.a = 128;
+                if ( selected != null && cp.id.equals( selected ) ) {
+                    style = "fill:none";
+                } else {
+                    style = null;
                 }
+                    
                 
                 
                 rc.drawColoredPolygon(cp3D, bounds, style,
