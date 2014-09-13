@@ -5,6 +5,7 @@
 package br.odb.svgtriangulate;
 
 
+import br.odb.gamelib.swing.SwingCanvasRenderingContext;
 import br.odb.gamerendering.rendering.DisplayList;
 import br.odb.gamerendering.rendering.GameRenderer;
 import br.odb.gamerendering.rendering.RenderingNode;

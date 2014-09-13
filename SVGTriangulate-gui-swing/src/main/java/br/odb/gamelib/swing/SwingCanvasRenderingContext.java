@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.odb.svgtriangulate;
+package br.odb.gamelib.swing;
 
 import br.odb.gamerendering.rendering.RasterImage;
 import br.odb.gamerendering.rendering.RenderingContext;
