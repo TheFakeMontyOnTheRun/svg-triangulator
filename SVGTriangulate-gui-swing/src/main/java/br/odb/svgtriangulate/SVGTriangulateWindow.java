@@ -235,6 +235,7 @@ public class SVGTriangulateWindow extends javax.swing.JFrame {
         if (file != null) {
             String filePath = file.getAbsolutePath();
             SVGGraphic processed = SVGParsingUtils.splitIntoMonotones(graphic);
+            SVGParsingUtils.writeBinary(processed, graphic, filePath);
         }
     }//GEN-LAST:event_btnSaveAsBinaryActionPerformed
 
@@ -324,13 +325,22 @@ public class SVGTriangulateWindow extends javax.swing.JFrame {
 
         if (graphic != null) {
             DisplayList displayList = new DisplayList("id");
-            Iso3DSVGRenderingNode node = new Iso3DSVGRenderingNode(graphic, "logo");
-            node.selected = (String) cmbShapes.getSelectedItem();
-            displayList.setItems(new RenderingNode[]{node});
+            
+            SVGRenderingNode node2D;
+            
+            if ( chkDrawIn3D.isSelected() ) {
+                Iso3DSVGRenderingNode node = new Iso3DSVGRenderingNode(graphic, "logo");
+                node.selected = (String) cmbShapes.getSelectedItem();
+                node2D = node;                
+            } else {            
+                node2D = new SVGRenderingNode(graphic, "logo");
+            }
+            displayList.setItems(new RenderingNode[]{node2D});
+            
             this.pnlSVGView.setRenderingContent(displayList);
             this.pnlSVGView.repaint();
-    
-            ColoredPolygon cp = graphic.getShapeById( (String) cmbShapes.getSelectedItem() );
+            String selectedId = (String) cmbShapes.getSelectedItem();
+            ColoredPolygon cp = graphic.getShapeById( selectedId );
             sldExtrusion.setValue( cp.z );
             
         }

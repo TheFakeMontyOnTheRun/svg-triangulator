@@ -110,4 +110,9 @@ public class SwingCanvasRenderingContext extends RenderingContext {
     public void drawBitmap(RasterImage ri, Vec2 vec2, Vec2 vec21, int i) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void drawLine(Vec2 p0, Vec2 p1) {
+        graphics.drawLine( ( int )p0.x, ( int )p0.y, ( int )p1.x, ( int )p1.y );
+    }
 }

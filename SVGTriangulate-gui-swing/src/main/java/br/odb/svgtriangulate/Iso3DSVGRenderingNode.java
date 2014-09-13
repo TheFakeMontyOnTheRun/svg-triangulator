@@ -11,6 +11,7 @@ import br.odb.gamerendering.rendering.SVGRenderingNode;
 import br.odb.libsvg.ColoredPolygon;
 import br.odb.libsvg.SVGGraphic;
 import br.odb.utils.Color;
+import br.odb.utils.math.Vec2;
 
 /**
  *
@@ -39,7 +40,7 @@ public class Iso3DSVGRenderingNode extends SVGRenderingNode {
 
                 for (int c = 0; c < cp.npoints; ++c) {
 
-                    cp3D.addPoint(cp.xpoints[ c], cp.ypoints[ c] - cp.xpoints[ c] + cp.z );
+                    cp3D.addPoint(400 + cp.xpoints[ c] + cp.z, 400 + cp.ypoints[ c] - cp.xpoints[ c] + cp.z );
                 }
 
                 if ( selected != null && cp.id.equals( selected ) ) {
@@ -49,6 +50,25 @@ public class Iso3DSVGRenderingNode extends SVGRenderingNode {
                 }
                     
                 
+                
+                rc.drawColoredPolygon(cp3D, bounds, style,
+                        graphic.gradients);
+
+                
+                
+                cp3D = new ColoredPolygon();
+                
+                cp3D.color = new Color( cp.color );
+
+                for (int c = 0; c < cp.npoints; ++c) {
+
+                    cp3D.addPoint(400 + cp.xpoints[ c], 400 + cp.ypoints[ c] - cp.xpoints[ c] );
+                    
+                    
+                    rc.drawLine( new Vec2( 400 + cp.xpoints[ c], 400 + cp.ypoints[ c] - cp.xpoints[ c] ), new Vec2( 400 + cp.xpoints[ c] + cp.z, 400 + cp.ypoints[ c] - cp.xpoints[ c] + cp.z ) );
+                }
+
+                style = null;
                 
                 rc.drawColoredPolygon(cp3D, bounds, style,
                         graphic.gradients);
