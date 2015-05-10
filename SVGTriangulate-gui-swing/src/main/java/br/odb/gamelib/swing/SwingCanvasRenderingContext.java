@@ -52,6 +52,10 @@ public class SwingCanvasRenderingContext extends RenderingContext {
         int[] ypoints = null;
         GeneralPath path = new GeneralPath();
 
+        if ( c.controlPoints.isEmpty() ) {
+            return;
+        }
+        
         Vec2 point = c.controlPoints.get(0);
 
         graphics.setColor(SwingUtils.getSwingColor(c.color));
@@ -114,5 +118,10 @@ public class SwingCanvasRenderingContext extends RenderingContext {
     @Override
     public void drawLine(Vec2 p0, Vec2 p1) {
         graphics.drawLine( ( int )p0.x, ( int )p0.y, ( int )p1.x, ( int )p1.y );
+    }
+
+    @Override
+    public void drawText(Vec2 p0, String content, Color color, int fontSize) {
+        graphics.drawString(content, (int)p0.x, (int)p0.y );
     }
 }
