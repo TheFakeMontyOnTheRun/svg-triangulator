@@ -28,26 +28,29 @@
               <Component id="pnlSVGView" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="sldExtrusion" max="32767" attributes="0"/>
-                              <Component id="cmbShapes" max="32767" attributes="0"/>
-                              <Component id="btnOpenSVG" max="32767" attributes="0"/>
-                              <Component id="btnSaveAsSVG" max="32767" attributes="0"/>
-                              <Component id="btnSaveAsBinary" max="32767" attributes="0"/>
-                              <Component id="btnQuit" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="btnSaveAsRegularSVG" min="-2" pref="213" max="-2" attributes="0"/>
-                          <Component id="chkDrawIn3D" alignment="0" min="-2" pref="204" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="sldExtrusion" pref="213" max="32767" attributes="0"/>
+                      <Component id="cmbShapes" max="32767" attributes="0"/>
+                      <Component id="btnQuit" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="btnOpenAsBinary" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btnSaveAsSVG" max="32767" attributes="0"/>
+                          <Component id="btnSaveAsBinary" max="32767" attributes="0"/>
+                          <Component id="btnSaveAsRegularSVG" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="btnSaveAsTextureAndNormals" alignment="1" min="-2" pref="207" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="btnOpenAsBinary" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnOpenSVG" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                          <Component id="chkDrawIn3D" min="-2" pref="204" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -61,17 +64,19 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="sldExtrusion" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="chkDrawIn3D" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                       <Component id="btnOpenSVG" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnOpenAsBinary" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnSaveAsRegularSVG" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnSaveAsSVG" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnSaveAsBinary" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="chkDrawIn3D" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
-                      <Component id="btnOpenAsBinary" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnSaveAsTextureAndNormals" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnQuit" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -177,6 +182,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOpenAsBinaryActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnSaveAsTextureAndNormals">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Save as texture + Normals"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveAsTextureAndNormalsActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

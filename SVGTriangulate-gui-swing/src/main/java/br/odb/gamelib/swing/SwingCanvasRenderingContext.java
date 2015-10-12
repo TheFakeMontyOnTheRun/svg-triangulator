@@ -46,6 +46,10 @@ public class SwingCanvasRenderingContext extends RenderingContext {
     }
 
     @Override
+	public void drawOval(Rect r ,Color c ) {
+    }
+
+    @Override
     public void drawColoredPolygon(ColoredPolygon c, Rect bounds, String style, HashMap<String, SVGParsingUtils.Gradient> gradients) {
 
         int[] xpoints = null;
