@@ -9,8 +9,8 @@ package br.odb.gamelib.swing;
 import br.odb.gamerendering.rendering.RenderingContext;
 import br.odb.libsvg.ColoredPolygon;
 import br.odb.libsvg.SVGGraphic;
-import br.odb.utils.Color;
-import br.odb.utils.Rect;
+import br.odb.gameutils.Color;
+import br.odb.gameutils.Rect;
 
 /**
  *

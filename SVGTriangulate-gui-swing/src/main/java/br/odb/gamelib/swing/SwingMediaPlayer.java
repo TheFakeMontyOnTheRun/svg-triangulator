@@ -11,24 +11,24 @@ import java.applet.AudioClip;
  *
  * @author monty
  */
-public class SwingMediaPlayer extends AbstractMediaPlayer {
+public class SwingMediaPlayer implements AbstractMediaPlayer {
     AudioClip clip;
 
     SwingMediaPlayer(AudioClip clip) {
         this.clip = clip;
     }
 
-    @Override
+
     public void play() {
         clip.play();
     }
 
-    @Override
+
     public void loop() {
         clip.loop();
     }
 
-    @Override
+
     public void stop() {
         clip.stop();
     }    

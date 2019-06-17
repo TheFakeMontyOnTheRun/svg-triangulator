@@ -10,8 +10,8 @@ import br.odb.gamerendering.rendering.RenderingNode;
 import br.odb.gamerendering.rendering.SVGRenderingNode;
 import br.odb.libsvg.ColoredPolygon;
 import br.odb.libsvg.SVGGraphic;
-import br.odb.utils.Color;
-import br.odb.utils.math.Vec2;
+import br.odb.gameutils.Color;
+import br.odb.gameutils.math.Vec2;
 
 /**
  *

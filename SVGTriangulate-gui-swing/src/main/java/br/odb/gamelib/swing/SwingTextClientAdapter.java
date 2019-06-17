@@ -6,8 +6,9 @@ package br.odb.gamelib.swing;
 
 
 import br.odb.gameapp.ApplicationClient;
+import br.odb.gameapp.FileServerDelegate;
 import br.odb.gamerendering.rendering.AssetManager;
-import br.odb.utils.FileServerDelegate;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -35,7 +36,7 @@ class SwingTextClientAdapter implements ApplicationClient {
         this.resManager = resManager;
     }
 
-    @Override
+
     public void setClientId(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -95,7 +96,7 @@ class SwingTextClientAdapter implements ApplicationClient {
     public void playMedia(String uri, String alt) {
         //sub-optimal, I know...
         //newAudioClip(  getClass().getResource( uri )).play();
-        resManager.getMediaPlayer(uri).play();
+//        resManager.getMediaPlayer(uri).play();
     }
 
     @Override
@@ -103,12 +104,10 @@ class SwingTextClientAdapter implements ApplicationClient {
         continueRunning = false;
     }
 
-    @Override
     public boolean isConnected() {
         return continueRunning;
     }
 
-    @Override
     public String openHTTP(String url) {
         String response = "";
         BufferedReader in = null;
@@ -135,7 +134,7 @@ class SwingTextClientAdapter implements ApplicationClient {
 
     }
 
-    @Override
+
     public void shortPause() {
     }
 }

@@ -10,9 +10,9 @@ import br.odb.gamerendering.rendering.DisplayList;
 import br.odb.gamerendering.rendering.GameRenderer;
 import br.odb.gamerendering.rendering.RenderingNode;
 import br.odb.gamerendering.rendering.SolidSquareRenderingNode;
-import br.odb.utils.Color;
-import br.odb.utils.Rect;
-import br.odb.utils.math.Vec2;
+import br.odb.gameutils.Color;
+import br.odb.gameutils.Rect;
+import br.odb.gameutils.math.Vec2;
 import java.awt.Graphics;
 
 /**

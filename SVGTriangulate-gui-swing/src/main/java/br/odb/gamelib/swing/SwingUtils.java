@@ -12,7 +12,7 @@ import java.awt.Color;
  */
 class SwingUtils {
 
-    static Color getSwingColor(br.odb.utils.Color color) {
+    static Color getSwingColor(br.odb.gameutils.Color color) {
         Color swingColor = new Color( color.r, color.g, color.b, color.a );
         
         return swingColor;

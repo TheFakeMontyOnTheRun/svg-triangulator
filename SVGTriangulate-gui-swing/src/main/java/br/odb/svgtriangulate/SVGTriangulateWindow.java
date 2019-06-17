@@ -13,7 +13,7 @@ import br.odb.gamerendering.rendering.SVGRenderingNode;
 import br.odb.libsvg.ColoredPolygon;
 import br.odb.libsvg.SVGGraphic;
 import br.odb.libsvg.SVGParsingUtils;
-import br.odb.utils.math.Vec2;
+import br.odb.gameutils.math.Vec2;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
