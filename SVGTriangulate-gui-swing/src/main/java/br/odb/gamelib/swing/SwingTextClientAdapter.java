@@ -7,7 +7,6 @@ package br.odb.gamelib.swing;
 
 import br.odb.gameapp.ApplicationClient;
 import br.odb.gameapp.FileServerDelegate;
-import br.odb.gamerendering.rendering.AssetManager;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
